@@ -49,3 +49,7 @@ p {
 img {
     width: 30%;
 }
+
+svg {
+    shape-rendering: geometricPrecision;
+}
