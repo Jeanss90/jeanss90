@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Goldman:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #07233c;
+    --primary2: #1f3d57;
+    --secondary: #4585ae;
+    --neutral: #ab843e;
+    --neutral2: #f7da79;
+    --light: #F0F8FF;
+}
+
+html {
+    font-size: clamp(12px, 1vw, 18px);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(165deg, var(--primary) 65%, var(--primary2), var(--secondary));
+}
+
+h1 {
+    font-family: "Goldman", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 15px;
+    color: var(--neutral);
+    font-size: clamp(3rem, 10vw, 7rem);
+}
+
+p {
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--light);
+    font-size: clamp(1.2rem, 5vw, 3.5rem);
+}
+
+img {
+    width: 30%;
+}
