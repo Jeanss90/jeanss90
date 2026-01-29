@@ -47,6 +47,7 @@ p {
 }
 
 img {
+    filter: drop-shadow(0px -3px 2px var(--primary2));
     width: 30%;
 }
 
