@@ -25,7 +25,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(165deg, var(--primary) 65%, var(--primary2), var(--secondary));
+    background: linear-gradient(165deg, var(--neutral2) -50%, var(--light) 75%, var(--secondary) 95%, var(--primary) 105%);
 }
 
 h1 {
@@ -42,12 +42,10 @@ p {
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
-    color: var(--light);
+    color: var(--primary);
     font-size: clamp(1.2rem, 5vw, 3.5rem);
 }
 
-svg {
+img {
     width: 30%;
-    height: auto;
-    shape-rendering: geometricPrecision;
 }
