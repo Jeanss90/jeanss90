@@ -5,8 +5,8 @@
     <title>Jeanss90.com</title>
 </head>
 <body>
-    <img src="img/logo.svg" alt="jeanns90">
-    <h1>Jeanss90.com</h1>
+    <img src="img/logo.svg" alt="jeanss90">
+    <h1 class="shimmer">Jeanss90.com</h1>
     <p>This website is under construction...</p>
 </body>
 </html>
