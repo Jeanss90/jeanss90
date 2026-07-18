@@ -13,6 +13,18 @@
     --neutral: #ab843e;
     --neutral2: #f7da79;
     --light: #F0F8FF;
+    --background-gradient: linear-gradient(165deg,
+        var(--neutral2) -50%,
+        var(--light) 60%,
+        var(--secondary) 85%,
+        var(--primary) 115%
+    );
+}
+
+html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 html {
@@ -24,11 +36,14 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: linear-gradient(165deg, var(--neutral2) -50%, var(--light) 75%, var(--secondary) 95%, var(--primary) 105%);
+    min-height: 100svh;   /* iOS safe viewport */
+    min-height: 100dvh;   /* dynamic viewport */
+    height: auto;
+    background: var(--background-gradient);
 }
 
-h1 {
+h1,
+span {
     font-family: "Goldman", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -48,6 +63,16 @@ p {
     pointer-events: none;
 }
 
+p a,
+h1 a {
+    color: inherit;          /* Use the same color as the <p> */
+    pointer-events: auto;
+}
+
+h1 a {
+    text-decoration: none;   /* Remove the underline */
+}
+
 img {
     width: 30%;
 }
@@ -55,21 +80,202 @@ img {
 .shimmer {
     position: relative;
     color: transparent;
-    background-image: linear-gradient(
-        110deg,
+    
+    /* We make the background 5x wider than the text so the "light" has a place to hide */
+    background-image: linear-gradient(135deg,
         var(--neutral) 40%,
         var(--neutral2) 50%,
         var(--neutral) 60%
     );
-    background-size: 200% 100%;
-    background-position: 200% 0;
+    background-size: 400% 400%;
+    
+    /* Start position: Parked far to the left and way above the text (Invisible) */
+    background-position: 0% 0%;
+    
     -webkit-background-clip: text;
     background-clip: text;
-    animation: shimmerText 3.5s linear infinite;
+    
+    animation: shimmerText 10s linear infinite;
 }
 
 @keyframes shimmerText {
-    to {
-        background-position: -200% 0;
+    0% {
+        background-position: 0% 0%;
+    }
+    10% {
+        background-position: 100% 0%;
+    }
+    45% {
+        background-position: 100% 100%;
+    }
+    65% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
     }
 }
+
+.overlay-spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    inset: 0;
+    background: var(--background-gradient);
+    z-index: 1001;
+
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 1s ease;
+}
+
+.overlay-spinner.fade-spinner {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.spinner {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    border: 7px solid #ffffff00;
+    border-radius: 50%;
+    border-color: var(--primary) #ffffff00;
+    animation: spin 2.2s infinite linear;
+}
+
+.spinner::before,
+.spinner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: 3.5px;
+    border: inherit;
+    border-radius: 50%;
+}
+
+.spinner::before {
+    border-color: var(--neutral) #ffffff00;
+    animation: inherit;
+    animation-duration: 0.9s;
+    animation-direction: reverse;
+}
+
+.spinner::after {
+    margin: 14px;
+}
+
+@keyframes spin {
+    50%, 100% {
+        transform: rotate(1turn);
+    }
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding: 18px clamp(12px, 4vw, 60px);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    box-shadow: 0 3px 5px 3px rgba(7, 35 , 60, 0.5);
+}
+
+.logo {
+    color: var(--light);
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-size: clamp(1rem, 5vw, 2.5rem);
+}
+
+.logo img {
+    width: 7%;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.logo span {
+    color: var(--neutral);
+    margin: 0;
+    font-size: revert;
+}
+
+.logo a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: "Goldman", sans-serif;
+    color: var(--light);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    transition: 0.4s ease;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links li a {
+    font-family: "Exo 2", sans-serif;
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--light);
+    transition: 0.3 ease;
+    position: relative;
+}
+
+.index-login a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.index-login span {
+    margin: 0;
+    color: var(--light);
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(to right, var(--neutral), var(--neutral2));
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 21px;
+    cursor: pointer;
+}
+
+.bar {
+    height: 3px;
+    width: 100%;
+    background: var(--light);
+    border-radius: 10px;
+    transition: all 0.4s ease;
+}
+
